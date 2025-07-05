@@ -1,51 +1,66 @@
+
 MATLAB ImageFX
 ==============
 
-MATLAB ImageFX es una herramienta simple para el procesamiento de imágenes en escala de grises. 
-Permite cargar imágenes y aplicar efectos básicos como umbralización, negativo, logaritmo, potencia 
-y resaltado por rango. Ideal para uso educativo o como base para aplicaciones más avanzadas en 
-procesamiento de imágenes.
+MATLAB ImageFX es una herramienta visual e interactiva desarrollada con App Designer para aplicar transformaciones básicas sobre imágenes en escala de grises. Convierte automáticamente imágenes en color a grises y permite experimentar con umbrales, transformaciones punto a punto y resaltado por rangos.
 
 🎯 Características
 ------------------
 
-- ✅ Carga imágenes en color o escala de grises
-- 🎨 Convierte automáticamente a escala de grises para su procesamiento
-- 🧮 Aplica 6 efectos básicos:
-  1. Umbralización simple
+- ✅ Carga imágenes en color o escala de grises (rechaza imágenes grises sin información de color).
+- 🎨 Convierte automáticamente a escala de grises para su procesamiento.
+- 🧮 Aplica 6 efectos clásicos de procesamiento de imagen:
+  1. Umbral simple
   2. Negativo
-  3. Transformación logarítmica
-  4. Transformación potencia (c, y)
-  5. Umbral doble (A, B)
-  6. Resaltado por rango (A, B)
+  3. Transformación logarítmica (c·log(1 + r))
+  4. Transformación potencia (c·r^y)
+  5. Umbralización doble entre A y B
+  6. Resaltado de zona entre A y B (manteniendo tonos originales)
 
-🖼️ Ejemplo
-----------
+Las capturas se encuentran en la carpeta `ss/`.
 
-Puedes generar las imágenes al ejecutar el script y tomar capturas con `saveas` o `exportgraphics`.
+<p align="center">
+  <img src="ss/ss.png" alt="Preview" width="50%">
+</p>
 
-Estructura del Proyecto
-------------------------
-
-📁 MATLAB-ImageFX  
-├── efectos_imagen.m      # Función principal con los efectos  
-├── main.m                # Script de entrada para ejecutar  
-├── img.png               # Imagen de prueba (opcional)  
-└── README.txt            # Este archivo  
+📁 Estructura del proyecto
+--------------------------
+```
+MATLAB-ImageFX/
+├── app.mlapp              # Aplicación principal en App Designer
+├── app_exported.m         # Versión exportada en script
+├── img-test/              # Carpeta con imágenes de prueba (BMP, JPG)
+│   ├── img-1.bmp
+│   ├── img-1_1.bmp
+│   ├── img-3.jpg
+│   └── img-3_1.jpg
+├── ss/                    # Screenshots de ejemplo
+│   └── ss.png
+└── README.md              # Este archivo
+```
 
 🚀 Cómo ejecutar
 ----------------
 
-1. Abre MATLAB.
-2. Asegúrate de estar en la carpeta del proyecto.
-3. Ejecuta desde la consola:
+Opción 1: Desde App Designer
+1. Abre `app.mlapp` en App Designer.
+2. Haz clic en Run ▶️.
+3. Haz clic en el botón "Cargar y procesar imagen".
 
-```matlab```>>>main
-O directamente: matlab 
-efectos_imagen('img.png')
+Opción 2: Desde consola MATLAB (modo script)
+1. Abre MATLAB en la carpeta del proyecto.
+2. Ejecuta:
+
+    main
+
+O directamente:
+
+    efectos_imagen('img-test/img-3.jpg');
 
 ⚙️ Valores por defecto
-Los siguientes valores se usan internamente si no se modifican:
+----------------------
+
+La app usa estos valores si el usuario no los modifica:
 
     umbral = 50;
     c = 1.1;
@@ -53,11 +68,14 @@ Los siguientes valores se usan internamente si no se modifican:
     A = 120;
     B = 150;
 
-Puedes adaptar la función efectos_imagen para recibir estos como parámetros.
+📌 Notas
+--------
 
-🧠 Créditos
-Desarrollado como parte de un ejercicio de procesamiento de imágenes en MATLAB.
-Inspirado en transformaciones clásicas de escala de grises y operaciones punto a punto.
+- Si cargas una imagen en escala de grises (1 canal) o visualmente gris (RGB con R=G=B), se mostrará una advertencia y no se procesará.
+- Los efectos están organizados en 7 ejes (UIAxes) y un solo botón activa todo el procesamiento.
+- Ideal para enseñanza de procesamiento de imágenes en cursos básicos o intermedios.
 
 📜 Licencia
-MIT License.
+-----------
+
+MIT License. Puedes usar, modificar y compartir este proyecto libremente.
